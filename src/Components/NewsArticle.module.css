@@ -1,0 +1,56 @@
+:root {
+  --author-cl: #28965a;
+  --date-cl: #28965a;
+  --page-cl: #f9f8f8;
+}
+
+.news-article {
+  width: 80%;
+  padding: 0 2rem;
+  display: flex;
+  flex-direction: column;
+  align-items: start;
+  background-color: var(--page-cl);
+  margin-top: 2rem;
+}
+
+header {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: start;
+}
+
+.news-title {
+  font-size: 3.2rem;
+  text-align: left;
+  font-family: " Newsreader ";
+  font-weight: 200;
+}
+
+.news-img {
+  max-width: 65%;
+  background-repeat: no-repeat;
+  background-size: contain;
+  aspect-ratio: 1;
+  margin-top: 2rem;
+}
+
+.news-author {
+  font-family: "Manrope";
+  margin-top: 2.2rem;
+  color: var(--author-cl);
+}
+
+.news-date {
+  font-family: "Manrope";
+  margin-top: 1rem;
+  color: var(--date-cl);
+}
+
+article {
+  max-width: 60%;
+  font-size: 1.2rem;
+  margin: 3rem 0;
+  font-family: "Roboto+Mono";
+}

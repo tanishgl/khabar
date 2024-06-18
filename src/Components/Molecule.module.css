@@ -1,0 +1,8 @@
+.molecule {
+  width: 80%;
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 1rem 1rem;
+  padding: 1rem;
+  background-color: #f9f8f8;
+}

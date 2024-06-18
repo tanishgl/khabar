@@ -1,0 +1,47 @@
+:root {
+  --buffer-bg: #f6e8ea;
+  --buffer-bg2: #ddf2eb;
+}
+
+.buffer-box {
+  width: 100%;
+  height: 60%;
+  background-color: #f6f7f8;
+  background-image: linear-gradient(
+    to right,
+    #f6f7f8 0%,
+    #edeef1 20%,
+    #f6f7f8 40%,
+    #f6f7f8 100%
+  );
+  background-repeat: no-repeat;
+  animation: buffer-slide 1s linear 0s infinite forwards;
+}
+
+.pic-box {
+  width: 100%;
+  height: 60%;
+  overflow: hidden;
+}
+
+.pic-pic {
+  width: 100%;
+  height: 100%;
+  transform: scale(1.12);
+  transition: all 0.4s ease-out;
+}
+
+.pic-pic:hover {
+  transform: scale(1);
+  transition: all 0.2s ease-in-out;
+}
+
+@keyframes buffer-slide {
+  0% {
+    background-position: -468px 0;
+  }
+
+  100% {
+    background-position: 468px 0;
+  }
+}

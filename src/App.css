@@ -1,0 +1,43 @@
+nav {
+  margin-left: 2rem;
+  width: 80%;
+  height: 3rem;
+  display: flex;
+  justify-content: start;
+  align-items: center;
+  font-size: 1.5rem;
+  gap: 5rem;
+  font-family: "Newsreader";
+}
+
+.nav-link {
+  cursor: pointer;
+}
+
+main {
+  height: 80%;
+}
+
+.panel {
+  display: flex;
+}
+
+select {
+  border: none;
+  font-family: "Inconsolata";
+  font-size: 1.5rem;
+  background-color: #cacfd6;
+}
+
+input {
+  border: none;
+  font-family: "Inconsolata";
+  font-size: 1.5rem;
+  background-color: #e6e6ea;
+  border-radius: 4px;
+}
+
+.fav {
+  margin-left: auto;
+  margin-right: 2rem;
+}

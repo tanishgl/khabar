@@ -1,0 +1,52 @@
+:root {
+  --atom-bg-color: #fafffd;
+  --atom-desc-color: #0e0f19;
+}
+
+.atom {
+  width: 22rem;
+  height: 18rem;
+  min-height: 12rem;
+  display: flex;
+  flex-direction: column;
+  background-color: var(--atom-bg-color);
+}
+
+.atom:hover {
+  background-color: var(--atom-bg-color);
+  cursor: pointer;
+  transition: all 1.2s ease-in-out;
+}
+
+.atom-p2 {
+  width: 100%;
+  height: 40%;
+  padding: 2px 8px;
+  display: flex;
+  flex-direction: column;
+}
+
+.atom-title {
+  width: 100%;
+  min-height: 30%;
+  font-size: 1.22rem;
+  margin-top: 8px;
+  font-family: "Manrope";
+}
+
+.atom-desc {
+  max-width: 100%;
+  height: 20%;
+  font-size: 1.08rem;
+  margin-top: 12px;
+  color: var(--atom-desc-color);
+  font-family: "Roboto+Mono";
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.atom-pic {
+  width: 100%;
+  height: 60%;
+}
