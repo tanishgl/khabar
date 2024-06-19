@@ -71,6 +71,11 @@ const App = () => {
           <div> </div>
         )}
       </main>
+      {isError ? (
+        <div className="error-pop">
+          <ErrorPop></ErrorPop>
+        </div>
+      ) : null}
     </div>
   );
 };

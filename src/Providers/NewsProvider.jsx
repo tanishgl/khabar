@@ -17,8 +17,11 @@ export const NewsProvider = ({ children }) => {
   const [areArticlesLoading, setAreArticlesLoading] = useState(false);
   const [size, setSize] = useState(0);
   const [page, setPage] = useState(1);
-
-  const fetchArticles = async (category) => {
+  const [isError, setIsError] = useState(false);
+  const [error, setError] = useState("");
+  const clearError = () => {
+    setIsError(false);
+  };
     try {
       setAreArticlesLoading(true);
       const q = query(
