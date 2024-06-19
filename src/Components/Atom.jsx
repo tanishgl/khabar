@@ -3,6 +3,7 @@ import styles from "./Atom.module.css";
 import Picture from "./Picture";
 import News from "../Models/NewsModel";
 import useNewsProvider from "../Providers/NewsProvider";
+import { PAGE_SIZE } from "../Utils/consts";
 
 const MAX_TITLE_SIZE = 70;
 
@@ -11,20 +12,29 @@ const Atom = ({ articleNo }) => {
   const [isWasted, setIsWasted] = useState(false);
   const [isLoading, setIsLoading] = useState(true);
   const [news, setNews] = useState(null);
-  const { readArticle, articles, size, areArticlesLoading } = useNewsProvider();
+  const [pan, setPan] = useState(-1);
+  const { readArticle, articles, areArticlesLoading, page, backToHome, size } =
+    useNewsProvider();
 
   useEffect(() => {
-    if (!areArticlesLoading && size && articleNo >= size) {
+    if (!areArticlesLoading && size && pan >= size) {
       setIsWasted(true);
+    } else {
+      setIsWasted(false);
     }
-  }, [areArticlesLoading, size]);
+  }, [areArticlesLoading, page, size, pan]);
 
   useEffect(() => {
-    if (articles && articles[articleNo]) {
-      setNews(new News(articles[articleNo]));
+    if (articles && articles[pan]) {
+      setNews(new News(articles[pan]));
       setIsLoading(false);
     }
-  }, [articles]);
+  }, [articles, pan]);
+
+  useEffect(() => {
+    const PAN = (page - 1) * PAGE_SIZE + articleNo;
+    setPan(PAN);
+  }, [page, backToHome]);
 
   const visitArticle = () => {
     if (news) readArticle(news);

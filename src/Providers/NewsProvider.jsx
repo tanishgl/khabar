@@ -1,45 +1,98 @@
-import { collection, getDocs, limit, orderBy, query } from "firebase/firestore";
-import news from "../Data/News";
+import {
+  collection,
+  getDocs,
+  limit,
+  orderBy,
+  query,
+  startAfter,
+  where,
+} from "firebase/firestore";
 
 /* eslint-disable react/prop-types */
 import { createContext, useContext, useEffect, useState } from "react";
 import { db } from "../firebase";
-
-const PAGE_SIZE = 8;
+import { PAGE_SIZE } from "../Utils/consts";
 
 const newsContext = createContext();
 
 export const NewsProvider = ({ children }) => {
-  const [newsData, setNewsData] = useState([]);
   const [isReading, setIsReading] = useState(false);
   const [newsArticle, setNewsArticle] = useState({});
   const [articles, setArticles] = useState([]);
-  const [areArticlesLoading, setAreArticlesLoading] = useState(false);
   const [size, setSize] = useState(0);
   const [page, setPage] = useState(1);
   const [isError, setIsError] = useState(false);
   const [error, setError] = useState("");
+  const [areArticlesLoading, setAreArticlesLoading] = useState(true);
+  const [newsCategory, setNewsCategory] = useState("sports");
+  const [lastArticle, setLastArticle] = useState({});
+  const [backToHome, setBackToHome] = useState(true);
+
+  useEffect(() => {
+    fetchArticlesByCategory();
+  }, [newsCategory]);
+
+  const switchPage = (toPage) => {
+    setPage(toPage);
+    fetchArticlesByPage(toPage);
+  };
+
   const clearError = () => {
     setIsError(false);
   };
+
+  const fetchArticlesByCategory = async () => {
     try {
       setAreArticlesLoading(true);
       const q = query(
-        collection(db, category),
-        orderBy("publishedAt", "desc"),
-        limit(PAGE_SIZE)
+        collection(db, newsCategory),
+        where("title", "!=", "[Removed]"),
+        orderBy("publishedAt", "desc")
       );
       const querySnapshot = await getDocs(q);
-      setSize(querySnapshot.size);
-      const fetched_articles = [];
+      let fetched_articles = [];
       querySnapshot.forEach((doc) => {
         fetched_articles.push(doc.data());
       });
-      setArticles((articles) =>
-        fetched_articles.filter((article) => article.title !== "[Removed]")
+      setSize(fetched_articles.length);
+      fetched_articles = fetched_articles.filter(
+        (article, idx) => idx < PAGE_SIZE
       );
+      setArticles(fetched_articles);
+      setLastArticle(fetched_articles[fetched_articles.length - 1].publishedAt);
+      setIsError(false);
+      setPage(1);
+    } catch (error) {
+      setIsError(true);
+      setError(error);
+    } finally {
+      setAreArticlesLoading(false);
+    }
+  };
+
+  const fetchArticlesByPage = async (page) => {
+    if (articles.length >= page * PAGE_SIZE) return;
+    try {
+      setAreArticlesLoading(true);
+      const q = query(
+        collection(db, newsCategory),
+        where("title", "!=", "[Removed]"),
+        orderBy("publishedAt", "desc"),
+        startAfter(lastArticle),
+        limit(PAGE_SIZE)
+      );
+      const querySnapshot = await getDocs(q);
+      let fetched_articles = [];
+      querySnapshot.forEach((doc) => {
+        fetched_articles.push(doc.data());
+      });
+      setArticles((articles) => [...articles, ...fetched_articles]);
+      setLastArticle(fetched_articles[fetched_articles.length - 1].publishedAt);
+      setIsError(false);
     } catch (error) {
       console.log(error);
+      setIsError(true);
+      setError(error);
     } finally {
       setAreArticlesLoading(false);
     }
@@ -51,27 +104,31 @@ export const NewsProvider = ({ children }) => {
   };
 
   const readArticle = (article) => {
-    console.log(article);
     setIsReading(true);
     setNewsArticle(article);
+    setBackToHome(false);
   };
-
-  useEffect(() => {
-    setNewsData((newsData) => [...newsData, ...news]);
-  }, []);
 
   return (
     <newsContext.Provider
       value={{
-        news: newsData,
         isReading,
         newsArticle,
         articles,
         areArticlesLoading,
         size,
-        fetchArticles,
+        page,
+        isError,
+        newsCategory,
+        backToHome,
+        fetchArticles: fetchArticlesByCategory,
         readArticle,
         fetchArticleByNumber,
+        switchPage,
+        clearError,
+        setNewsCategory,
+        setBackToHome,
+        fetchArticlesByPage,
       }}
     >
       {children}

@@ -3,15 +3,19 @@ import Molecule from "./Components/Molecule";
 import useNewsProvider from "./Providers/NewsProvider";
 import NewsArticle from "./Components/NewsArticle";
 import "./App.css";
+import Paginator from "./Components/Paginator";
+import ErrorPop from "./Components/errorPop";
 
 const App = () => {
   const [page, setPage] = useState(1);
-  const [category, setCategory] = useState("sports");
-  const { isReading, newsArticle, fetchArticles } = useNewsProvider();
-
-  useEffect(() => {
-    fetchArticles(category);
-  }, [category]);
+  const {
+    isReading,
+    newsArticle,
+    isError,
+    setNewsCategory,
+    newsCategory,
+    setBackToHome,
+  } = useNewsProvider();
 
   useEffect(() => {
     if (isReading && !!newsArticle) setPage(2);
@@ -19,11 +23,11 @@ const App = () => {
 
   const turnPage = (page_idx) => {
     setPage(page_idx);
+    setBackToHome(true);
   };
 
   const changeCategory = (e) => {
-    if (page !== 1) return;
-    setCategory(e.target.value);
+    setNewsCategory(e.target.value);
   };
 
   const categories = [
@@ -45,7 +49,7 @@ const App = () => {
         </div>
         <select
           name="category"
-          value={category}
+          value={newsCategory}
           onChange={(e) => changeCategory(e)}
         >
           {categories.map((ct, idx) => (
@@ -64,7 +68,12 @@ const App = () => {
       </nav>
       <main>
         {page == 1 ? (
-          <Molecule> </Molecule>
+          <div>
+            <Molecule> </Molecule>
+            <footer>
+              <Paginator></Paginator>
+            </footer>
+          </div>
         ) : page == 2 ? (
           <NewsArticle></NewsArticle>
         ) : (

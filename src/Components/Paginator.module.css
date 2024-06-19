@@ -1,0 +1,31 @@
+.page-btn,
+.page-btn-prev,
+.page-btn-next {
+  width: 2rem;
+  height: 2rem;
+  border-radius: 50%;
+  border: none;
+  outline: 8px solid #a52a2a;
+  font-size: 1rem;
+  cursor: pointer;
+  position: relative;
+}
+
+.page-btn-prev {
+  outline: none;
+  margin-right: 1rem;
+  color: brown;
+}
+
+.page-btn-next {
+  outline: none;
+  margin-left: 1rem;
+  color: brown;
+}
+
+.page-btn:hover,
+.page-btn-next:hover,
+.page-btn-prev:hover {
+  transform: scale(1.083);
+  transition: all 0.2s ease-in-out;
+}
