@@ -1,3 +1,11 @@
+.empty-list {
+  font-size: 32px;
+  font-family: "inconsolata";
+  text-align: center;
+  margin-top: 2rem;
+  line-height: 2rem;
+}
+
 .molecule {
   width: 100%;
   display: grid;

@@ -4,17 +4,23 @@ import Picture from "./Picture";
 import News from "../Models/NewsModel";
 import useNewsProvider from "../Providers/NewsProvider";
 import { PAGE_SIZE } from "../Utils/consts";
+import NoImg from "../assets/Images/No_img.png";
 
 const MAX_TITLE_SIZE = 70;
 
 /* eslint-disable react/prop-types */
-const Atom = ({ articleNo }) => {
+const Atom = ({ articleNo, favArticle }) => {
   const [isWasted, setIsWasted] = useState(false);
   const [isLoading, setIsLoading] = useState(true);
   const [news, setNews] = useState(null);
   const [pan, setPan] = useState(-1);
   const { readArticle, articles, areArticlesLoading, page, backToHome, size } =
     useNewsProvider();
+
+  useEffect(() => {
+    setNews(favArticle);
+    setIsLoading(false);
+  }, [favArticle]);
 
   useEffect(() => {
     if (!areArticlesLoading && size && pan >= size) {
@@ -50,7 +56,10 @@ const Atom = ({ articleNo }) => {
 
   return (
     <div className={`${styles.atom}`} onClick={visitArticle}>
-      <Picture pathname={news?.urlToImage} isLoading={isLoading}></Picture>
+      <Picture
+        pathname={news?.urlToImage ?? NoImg}
+        isLoading={isLoading}
+      ></Picture>
       <div className={`${styles["atom-p2"]} `}>
         <h2 className={`${styles["atom-title"]} ${news ? "" : "buffer-box"}`}>
           {formatTitle(news?.title)}

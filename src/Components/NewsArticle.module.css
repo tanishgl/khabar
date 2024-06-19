@@ -29,7 +29,7 @@ header {
 }
 
 .news-img {
-  max-width: 65%;
+  max-width: 50%;
   background-repeat: no-repeat;
   background-size: contain;
   aspect-ratio: 1;
@@ -49,8 +49,77 @@ header {
 }
 
 article {
-  max-width: 60%;
+  max-width: 100%;
   font-size: 1.2rem;
   margin: 3rem 0;
   font-family: "Roboto+Mono";
+}
+
+.news-panel {
+  width: 100%;
+  display: flex;
+  gap: 2rem;
+  align-items: flex-end;
+}
+
+.fav-btn,
+.unfav-btn {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: fit-content;
+  height: 3rem;
+  padding: 4px;
+  background-color: #1098f7;
+  border-radius: 4px;
+  font-family: "Inconsolata";
+  color: #ffffff;
+  cursor: pointer;
+}
+
+.fav-added {
+  background-color: #ffcf00;
+  width: fit-content;
+  padding: 8px;
+  color: #fa003f;
+  border-radius: 4px;
+  position: relative;
+  overflow: hidden;
+}
+
+@media screen and (max-width: 520px) {
+  .news-title {
+    font-size: 1.8rem;
+  }
+
+  .news-date,
+  .news-author {
+    font-size: 12px;
+    margin-top: 1rem;
+  }
+
+  .article {
+    font-size: 12px;
+    margin-top: 1rem;
+  }
+}
+
+@media screen and (max-width: 345px) {
+  .news-article {
+    width: 100%;
+  }
+  .news-title {
+    font-size: 12px;
+  }
+
+  .news-date,
+  .news-author {
+    font-size: 8px;
+    margin-top: 8px;
+  }
+
+  .article {
+    font-size: 10px;
+    margin-top: 1rem;
+  }
 }

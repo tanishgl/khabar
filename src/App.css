@@ -54,3 +54,49 @@ footer {
   top: 0;
   right: 0;
 }
+
+.logo {
+  width: 5rem;
+  height: 1rem;
+}
+
+@media screen and (max-width: 1096px) {
+  nav {
+    gap: 2rem;
+  }
+}
+
+@media screen and (max-width: 820px) {
+  nav {
+    gap: 12px;
+  }
+
+  input {
+    display: none;
+  }
+}
+
+@media screen and (max-width: 545px) {
+  nav {
+    gap: 8px;
+    font-size: 1rem;
+  }
+
+  select {
+    font-size: 1rem;
+  }
+}
+
+@media screen and (max-width: 335px) {
+  nav {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 8px;
+    font-size: 1rem;
+    margin-top: 1rem;
+  }
+
+  select {
+    font-size: 1rem;
+  }
+}

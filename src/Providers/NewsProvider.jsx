@@ -63,6 +63,7 @@ export const NewsProvider = ({ children }) => {
       setIsError(false);
       setPage(1);
     } catch (error) {
+      console.log(error);
       setIsError(true);
       setError(error);
     } finally {
@@ -109,6 +110,11 @@ export const NewsProvider = ({ children }) => {
     setBackToHome(false);
   };
 
+  const clearReadingMode = () => {
+    setIsReading(false);
+    setNewsArticle({});
+  };
+
   return (
     <newsContext.Provider
       value={{
@@ -121,6 +127,7 @@ export const NewsProvider = ({ children }) => {
         isError,
         newsCategory,
         backToHome,
+        error,
         fetchArticles: fetchArticlesByCategory,
         readArticle,
         fetchArticleByNumber,
@@ -129,6 +136,7 @@ export const NewsProvider = ({ children }) => {
         setNewsCategory,
         setBackToHome,
         fetchArticlesByPage,
+        clearReadingMode,
       }}
     >
       {children}

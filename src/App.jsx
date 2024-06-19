@@ -1,10 +1,13 @@
 import { useEffect, useState } from "react";
 import Molecule from "./Components/Molecule";
+import FavFrame from "./Components/Favframe";
 import useNewsProvider from "./Providers/NewsProvider";
+import useFavProvider from "./Providers/FavProvider";
 import NewsArticle from "./Components/NewsArticle";
 import "./App.css";
 import Paginator from "./Components/Paginator";
 import ErrorPop from "./Components/errorPop";
+import Logo from "./assets/Images/khabar.png";
 
 const App = () => {
   const [page, setPage] = useState(1);
@@ -15,7 +18,18 @@ const App = () => {
     setNewsCategory,
     newsCategory,
     setBackToHome,
+    clearReadingMode,
   } = useNewsProvider();
+  const {
+    setReadingInFavMode,
+    clearReadingInFavMode,
+    isReadingFavMode,
+    initializeFavList,
+  } = useFavProvider();
+
+  useEffect(() => {
+    initializeFavList();
+  }, []);
 
   useEffect(() => {
     if (isReading && !!newsArticle) setPage(2);
@@ -23,7 +37,18 @@ const App = () => {
 
   const turnPage = (page_idx) => {
     setPage(page_idx);
-    setBackToHome(true);
+    if (page_idx == 1) {
+      setBackToHome(true);
+    }
+    if (page_idx == 3) {
+      setReadingInFavMode();
+    }
+    if (page_idx == 1 || (page_idx == 2 && !isReadingFavMode)) {
+      clearReadingInFavMode();
+    }
+    if (page_idx !== 2) {
+      clearReadingMode();
+    }
   };
 
   const changeCategory = (e) => {
@@ -39,11 +64,9 @@ const App = () => {
     "tech",
   ];
   return (
-    <div>
+    <div className="flex-c">
       <nav className={"navbar"}>
-        <div className="nav-link logo" onClick={() => turnPage(1)}>
-          Khabar
-        </div>
+        <img src={Logo} className="logo" />
         <div className="nav-link" onClick={() => turnPage(1)}>
           Home
         </div>
@@ -64,7 +87,10 @@ const App = () => {
           minLength={3}
           maxLength={20}
         ></input>
-        <div className="fav nav-link"> Favorites</div>
+        <div className="fav nav-link" onClick={() => turnPage(3)}>
+          {" "}
+          Favorites
+        </div>
       </nav>
       <main>
         {page == 1 ? (
@@ -77,7 +103,7 @@ const App = () => {
         ) : page == 2 ? (
           <NewsArticle></NewsArticle>
         ) : (
-          <div> </div>
+          <FavFrame></FavFrame>
         )}
       </main>
       {isError ? (
