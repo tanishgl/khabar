@@ -1,16 +1,10 @@
-import { useEffect } from "react";
 import useNewsProvider from "../Providers/NewsProvider";
 import styles from "./NewsArticle.module.css";
 
 const NewsArticle = () => {
   const { newsArticle } = useNewsProvider();
-  useEffect(() => {
-    console.log(newsArticle);
-  }, [newsArticle]);
 
   const formatDate = (date) => {
-    console.log(date);
-    console.log(typeof date);
     return `${date.getMonth()}-${date.getDate()}-${date.getUTCFullYear()} ${date.getHours()}:${date.getMinutes()}`;
   };
   return (
