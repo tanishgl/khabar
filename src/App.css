@@ -29,13 +29,13 @@ select {
   background-color: #cacfd6;
 }
 
-input {
+/* input {
   border: none;
   font-family: "Inconsolata";
   font-size: 1.5rem;
   background-color: #e6e6ea;
   border-radius: 4px;
-}
+} */
 
 .fav {
   margin-left: auto;
@@ -71,9 +71,9 @@ footer {
     gap: 12px;
   }
 
-  input {
+  /* input {
     display: none;
-  }
+  } */
 }
 
 @media screen and (max-width: 545px) {

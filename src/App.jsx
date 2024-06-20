@@ -81,14 +81,7 @@ const App = () => {
             </option>
           ))}
         </select>
-        <input
-          type="text"
-          placeholder="News at a touch"
-          minLength={3}
-          maxLength={20}
-        ></input>
         <div className="fav nav-link" onClick={() => turnPage(3)}>
-          {" "}
           Favorites
         </div>
       </nav>

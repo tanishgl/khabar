@@ -63,7 +63,6 @@ export const NewsProvider = ({ children }) => {
       setIsError(false);
       setPage(1);
     } catch (error) {
-      console.log(error);
       setIsError(true);
       setError(error);
     } finally {
