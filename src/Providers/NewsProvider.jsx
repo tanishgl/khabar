@@ -24,7 +24,7 @@ export const NewsProvider = ({ children }) => {
   const [isError, setIsError] = useState(false);
   const [error, setError] = useState("");
   const [areArticlesLoading, setAreArticlesLoading] = useState(true);
-  const [newsCategory, setNewsCategory] = useState("sports");
+  const [newsCategory, setNewsCategory] = useState("entertainment");
   const [lastArticle, setLastArticle] = useState({});
   const [backToHome, setBackToHome] = useState(true);
 

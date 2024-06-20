@@ -42,7 +42,6 @@ const App = () => {
   useEffect(() => {
     if (!areArticlesLoading) {
       logoRef.current.style.setProperty("--animate-times", 1);
-      console.log("articles are loaded");
     }
   }, [areArticlesLoading]);
 
