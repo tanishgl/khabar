@@ -46,7 +46,7 @@ export const FavProvider = ({ children }) => {
     let updatedFavList = [...favList];
     updatedFavList.splice(newsIdx, 1);
     setFavList(updatedFavList);
-    localStorage.removeItem(news.title);
+    localStorage.removeItem(`NEWS_${news.title}`);
   };
 
   const getNewsArticle = (news) => {
