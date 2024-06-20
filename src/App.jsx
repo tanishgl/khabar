@@ -8,6 +8,7 @@ import "./App.css";
 import Paginator from "./Components/Paginator";
 import ErrorPop from "./Components/errorPop";
 import Logo from "./assets/Images/khabar.png";
+import { categories } from "./Utils/consts";
 
 const App = () => {
   const [page, setPage] = useState(1);
@@ -53,16 +54,9 @@ const App = () => {
 
   const changeCategory = (e) => {
     setNewsCategory(e.target.value);
+    turnPage(1);
   };
 
-  const categories = [
-    "sports",
-    "entertainment",
-    "nature",
-    "stocks",
-    "politics",
-    "tech",
-  ];
   return (
     <div className="flex-c">
       <nav className={"navbar"}>

@@ -1,4 +1,5 @@
 import { createContext, useContext, useState } from "react";
+import { STORAGE_PREFIX } from "../Utils/consts";
 
 const FavContext = createContext();
 
@@ -11,7 +12,7 @@ export const FavProvider = ({ children }) => {
     const storedFavs = [];
     for (let i = 0; i < localStorage.length; i++) {
       const key = localStorage.key(i);
-      if (key.startsWith("NEWS_")) {
+      if (key.startsWith(STORAGE_PREFIX)) {
         const item = localStorage.getItem(key);
         try {
           const storedFav = JSON.parse(item);

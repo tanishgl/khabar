@@ -18,8 +18,10 @@ const Atom = ({ articleNo, favArticle }) => {
     useNewsProvider();
 
   useEffect(() => {
-    setNews(favArticle);
-    setIsLoading(false);
+    if (favArticle) {
+      setNews(favArticle);
+      setIsLoading(false);
+    }
   }, [favArticle]);
 
   useEffect(() => {
