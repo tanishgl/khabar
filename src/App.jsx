@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import Molecule from "./Components/Molecule";
 import FavFrame from "./Components/Favframe";
 import useNewsProvider from "./Providers/NewsProvider";
@@ -7,7 +7,7 @@ import NewsArticle from "./Components/NewsArticle";
 import "./App.css";
 import Paginator from "./Components/Paginator";
 import ErrorPop from "./Components/errorPop";
-import Logo from "./assets/Images/khabar.png";
+import Logo from "./assets/Images/globe.png";
 import { categories } from "./Utils/consts";
 
 const App = () => {
@@ -20,6 +20,7 @@ const App = () => {
     newsCategory,
     setBackToHome,
     clearReadingMode,
+    areArticlesLoading,
   } = useNewsProvider();
   const {
     setReadingInFavMode,
@@ -28,6 +29,8 @@ const App = () => {
     initializeFavList,
   } = useFavProvider();
 
+  const logoRef = useRef();
+
   useEffect(() => {
     initializeFavList();
   }, []);
@@ -35,6 +38,13 @@ const App = () => {
   useEffect(() => {
     if (isReading && !!newsArticle) setPage(2);
   }, [isReading, newsArticle]);
+
+  useEffect(() => {
+    if (!areArticlesLoading) {
+      logoRef.current.style.setProperty("--animate-times", 1);
+      console.log("articles are loaded");
+    }
+  }, [areArticlesLoading]);
 
   const turnPage = (page_idx) => {
     setPage(page_idx);
@@ -60,7 +70,7 @@ const App = () => {
   return (
     <div className="flex-c">
       <nav className={"navbar"}>
-        <img src={Logo} className="logo" />
+        <img ref={logoRef} src={Logo} className="logo" />
         <div className="nav-link" onClick={() => turnPage(1)}>
           Home
         </div>

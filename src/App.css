@@ -29,14 +29,6 @@ select {
   background-color: #cacfd6;
 }
 
-/* input {
-  border: none;
-  font-family: "Inconsolata";
-  font-size: 1.5rem;
-  background-color: #e6e6ea;
-  border-radius: 4px;
-} */
-
 .fav {
   margin-left: auto;
   margin-right: 2rem;
@@ -56,8 +48,20 @@ footer {
 }
 
 .logo {
-  width: 5rem;
-  height: 1rem;
+  --animate-times: infinite;
+  width: 2rem;
+  height: 2rem;
+  animation: rotate 1s ease-in-out 0s var(--animate-times) forwards;
+}
+
+@keyframes rotate {
+  0% {
+    rotate: 0deg;
+  }
+
+  100% {
+    rotate: 360deg;
+  }
 }
 
 @media screen and (max-width: 1096px) {
